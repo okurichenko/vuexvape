@@ -20,9 +20,11 @@ new Vue({
   components: { App },
   computed: Vuex.mapGetters([
     'aromas',
+    'recipes',
   ]),
   firebase: {
     aromas: db.ref('aromas'),
+    recipes: db.ref('recipes'),
   },
 });
 

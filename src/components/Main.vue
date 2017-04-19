@@ -1,14 +1,22 @@
 <template>
   <div class="main">
+    <layout-default>
+      <router-view></router-view>
+    </layout-default>
   </div>
 </template>
 
 <script>
+  import LayoutDefault from '@/components/non-routable/LayoutDefault';
+
   export default {
     name: 'main',
+    components: {
+      LayoutDefault,
+    },
     beforeCreate() {
       if (this.$store.state.user) {
-        this.$router.replace('/recipes');
+        this.$router.replace('/aromas');
       } else {
         this.$router.replace('/sign-in');
       }

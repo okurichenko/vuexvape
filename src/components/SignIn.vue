@@ -1,6 +1,12 @@
 <template>
-  <div class="sign-in">
-    <button @click="signIn">Sign in with Google</button>
+  <div class="content-fluid bg-primary full-height">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3 pushed">
+        <button class="btn btn-default btn-block" @click="signIn">
+          Sign in with <i class="fa fa-google"></i>oogle
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -18,4 +24,7 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style></style>
+<style lang="sass">
+
+
+</style>
