@@ -33,8 +33,8 @@
     computed: {
       ...mapState(['user']),
       aromas() {
-        console.log(this.$store.state.aromas);
-        return this.$store.state.aromas;
+        const state = this.$store.state;
+        return state.allAromas.filter(aroma => aroma.userId === state.user.uid);
       },
     },
   };

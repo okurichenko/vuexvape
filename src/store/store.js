@@ -12,6 +12,9 @@ export default new Vuex.Store({
   state: {
     aromas: null,
     recipes: null,
+    allAromas: null,
+    allRecipes: null,
+    eliquidBases: null,
     user: null,
   },
   mutations: {
@@ -26,13 +29,20 @@ export default new Vuex.Store({
       delete aromaToSave['.key'];
       return db.ref(`/aromas/${aroma['.key']}`).set(aromaToSave);
     },
+
+    createAroma(store, aroma) {
+      const aromaToSave = Object.assign({
+        userId: store.state.user.uid,
+      }, aroma);
+      return db.ref('/aromas/').push(aromaToSave);
+    },
   },
   getters: {
     aromas(state) {
-      return state.aromas;
+      return state.allAromas.filter(aroma => aroma.userId === state.user.uid);
     },
     recipes(state) {
-      return state.recipes;
+      return state.allRecipes.filter(recipe => recipe.userId === state.user.uid);
     },
   },
 });

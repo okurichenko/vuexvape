@@ -1,27 +1,40 @@
 <template>
   <div class="hello">
-    <button v-if="user" @click="logout">Logout</button>
-    <ul v-for="aroma in aromas">
-      <li>{{aroma.name}}</li>
-    </ul>
+    <layout-header>
+      <div class="header-left"></div>
+      <h5 class="header-title text-center">Recipes</h5>
+      <div class="header-right">
+        <div class="btn btn-link btn-block">
+          <i class="fa fa-plus"></i>
+        </div>
+      </div>
+    </layout-header>
+    <layout-content>
+      <div class="aromas-list" v-for="recipe in recipes">
+        <recipe-card :recipe="recipe"></recipe-card>
+      </div>
+    </layout-content>
   </div>
 </template>
 
 <script>
   import { mapState } from 'vuex';
-  import firebaseApp from '@/store/firebase';
+  import LayoutHeader from '@/components/non-routable/LayoutHeader';
+  import LayoutContent from '@/components/non-routable/LayoutContent';
+  import RecipeCard from '@/components/non-routable/RecipeCard';
 
   export default {
-    name: 'hello',
+    name: 'recipe-index',
+    components: {
+      LayoutHeader,
+      LayoutContent,
+      RecipeCard,
+    },
     computed: {
       ...mapState(['user']),
-      aromas() {
-        return this.$store.state.aromas;
-      },
-    },
-    methods: {
-      logout() {
-        firebaseApp.auth().signOut();
+      recipes() {
+        const state = this.$store.state;
+        return state.allRecipes;
       },
     },
   };

@@ -10,18 +10,18 @@
       <div class="header-right"></div>
     </layout-header>
     <layout-content>
-      <form role="form" class="form ember-view">
+      <form role="form" class="form ember-view" v-on:submit="formSubmit(aroma)">
         <div class="form-group is-required ember-view">
           <label for="ember842-field" class="control-label">Vendor</label>
-          <input required="" placeholder="Vendor" type="text" id="ember842-field" class="form-control">
+          <input v-model="aroma.vendor" placeholder="Vendor" type="text" id="ember842-field" class="form-control">
         </div>
         <div id="ember904" class="form-group is-required ember-view">
           <label for="ember904-field" class="control-label">Name</label>
-          <input required="" placeholder="Name" type="text" id="ember904-field" class="form-control">
+          <input v-model="aroma.name" placeholder="Name" type="text" id="ember904-field" class="form-control">
         </div>
         <div id="ember910" class="form-group is-required ember-view">
           <label for="ember910-field" class="control-label  ">Volume</label>
-          <input required="" placeholder="Volume" type="number" id="ember910-field" class="form-control">
+          <input v-model="aroma.volume" placeholder="Volume" type="number" id="ember910-field" class="form-control">
         </div>
 
         <br>
@@ -33,8 +33,6 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-  import firebaseApp from '@/store/firebase';
   import LayoutHeader from '@/components/non-routable/LayoutHeader';
   import LayoutContent from '@/components/non-routable/LayoutContent';
 
@@ -45,11 +43,19 @@
       LayoutContent,
     },
     computed: {
-      ...mapState(['user']),
+      aroma() {
+        return {
+          vendor: '',
+          name: '',
+          volume: '',
+        };
+      },
     },
     methods: {
-      logout() {
-        firebaseApp.auth().signOut();
+      formSubmit(aroma) {
+        return this.$store.dispatch('createAroma', aroma).then(() => {
+          this.$router.replace('/aromas');
+        });
       },
     },
   };

@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import RecipesIndex from '@/components/routable/recipes/Index';
+import RecipesInitial from '@/components/routable/recipes/Initial';
+import RecipesEdit from '@/components/routable/recipes/Edit';
 
 import AromasInitial from '@/components/routable/aromas/Initial';
 import AromasIndex from '@/components/routable/aromas/Index';
@@ -22,7 +24,19 @@ export default new Router({
         {
           path: 'recipes',
           name: 'Recipes',
-          component: RecipesIndex,
+          component: RecipesInitial,
+          children: [
+            {
+              path: '',
+              name: 'recipes-index',
+              component: RecipesIndex,
+            },
+            {
+              path: ':id/edit',
+              name: 'recipes-edit',
+              component: RecipesEdit,
+            },
+          ],
         },
         {
           path: 'aromas',
